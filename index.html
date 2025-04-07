@@ -2,7 +2,9 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Team 955 - Fortnite</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -265,38 +267,26 @@
                 font-size: 1rem;
             }
 
-            .news-grid {
+            .hero-logo {
+                width: 250px;
+                height: 250px;
+            }
+
+            .games-grid {
                 grid-template-columns: 1fr;
                 padding: 0 1rem;
             }
 
-            .news-card {
-                margin-bottom: 2rem;
+            .game-card {
+                height: 300px;
             }
 
-            .news-card img {
-                height: 200px;
+            .game-overlay h3 {
+                font-size: 1.5rem;
             }
 
-            .news-content {
-                padding: 1.5rem;
-            }
-
-            .news-content h3 {
-                font-size: 1.2rem;
-            }
-
-            .news-content p {
-                font-size: 0.9rem;
-            }
-
-            .news-date {
-                font-size: 0.8rem;
-            }
-
-            .read-more {
-                font-size: 0.9rem;
-                padding: 0.5rem 1rem;
+            .game-overlay p {
+                font-size: 1rem;
             }
 
             .footer-logo {
@@ -315,6 +305,15 @@
         }
 
         @media (max-width: 480px) {
+            .navbar {
+                padding: 0.5rem 1rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 50px;
+            }
+
             .hero-content h1 {
                 font-size: 2rem;
             }
@@ -323,25 +322,34 @@
                 font-size: 0.9rem;
             }
 
-            .news-card img {
-                height: 180px;
+            .hero-logo {
+                width: 200px;
+                height: 200px;
             }
 
-            .news-content {
+            .game-card {
+                height: 250px;
+            }
+
+            .game-overlay {
                 padding: 1rem;
             }
 
-            .news-content h3 {
-                font-size: 1.1rem;
+            .game-overlay h3 {
+                font-size: 1.2rem;
             }
 
-            .news-content p {
-                font-size: 0.8rem;
+            .game-overlay p {
+                font-size: 0.9rem;
             }
 
             .footer-logo {
                 width: 100px;
                 height: 50px;
+            }
+
+            .social-links a {
+                font-size: 0.9rem;
             }
         }
 
@@ -437,6 +445,21 @@
         .language-btn:hover {
             color: #ff4d4d;
         }
+
+        /* Ajout de styles spécifiques pour iPhone */
+        @supports (-webkit-touch-callout: none) {
+            .hero {
+                height: -webkit-fill-available;
+            }
+
+            .navbar {
+                padding-top: env(safe-area-inset-top);
+            }
+
+            .footer {
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+        }
     </style>
 </head>
 <body>
@@ -506,42 +529,92 @@
     </footer>
 
     <script>
-        // Traductions
+        // Animation du logo au premier chargement uniquement
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!sessionStorage.getItem('logoAnimated')) {
+                const logo = document.querySelector('.logo');
+                logo.style.opacity = '0';
+                logo.style.transform = 'translateY(-20px)';
+                
+                setTimeout(() => {
+                    logo.style.transition = 'all 1s ease';
+                    logo.style.opacity = '1';
+                    logo.style.transform = 'translateY(0)';
+                    sessionStorage.setItem('logoAnimated', 'true');
+                }, 500);
+            }
+        });
+
+        // Script de traduction
         const translations = {
-            fr: {
-                home: "Accueil",
-                roster: "Roster",
-                news: "News",
-                shop: "Shop",
-                chooseTeam: "Choissis ton équipe",
-                mainTeam: "Notre équipe principale",
-                secondTeam: "Notre équipe secondaire",
-                copyright: "Tous droits réservés."
+            'fr': {
+                'Accueil': 'Accueil',
+                'Roster': 'Roster',
+                'News': 'News',
+                'Shop': 'Shop',
+                'Notre Roster': 'Notre Roster',
+                'Membres': 'Membres',
+                'Niveau': 'Niveau',
+                'Fortnite Tracker': 'Fortnite Tracker',
+                'Acheter': 'Acheter',
+                'Tous droits réservés': 'Tous droits réservés',
+                'Notre Shop': 'Notre Shop',
+                'Produit Officiel': 'Produit Officiel',
+                'Collection Exclusif': 'Collection Exclusif'
             },
-            en: {
-                home: "Home",
-                roster: "Roster",
-                news: "News",
-                shop: "Shop",
-                chooseTeam: "Choose your team",
-                mainTeam: "Our main team",
-                secondTeam: "Our secondary team",
-                copyright: "All rights reserved."
+            'en': {
+                'Accueil': 'Home',
+                'Roster': 'Roster',
+                'News': 'News',
+                'Shop': 'Shop',
+                'Notre Roster': 'Our Roster',
+                'Membres': 'Members',
+                'Niveau': 'Level',
+                'Fortnite Tracker': 'Fortnite Tracker',
+                'Acheter': 'Buy',
+                'Tous droits réservés': 'All rights reserved',
+                'Notre Shop': 'Our Shop',
+                'Produit Officiel': 'Official Product',
+                'Collection Exclusif': 'Exclusive Collection'
             }
         };
 
-        // Fonction de traduction
-        function translatePage(lang) {
-            document.querySelectorAll('[data-fr]').forEach(element => {
-                element.textContent = element.getAttribute(`data-${lang}`);
-            });
+        let currentLang = 'fr';
 
-            // Mise à jour du texte spécifique
-            document.querySelector('.hero p').textContent = translations[lang].chooseTeam;
-            document.querySelectorAll('.game-overlay p')[0].textContent = translations[lang].mainTeam;
-            document.querySelectorAll('.game-overlay p')[1].textContent = translations[lang].secondTeam;
-            document.querySelector('footer p').textContent = `© 2024 Team 955. ${translations[lang].copyright}`;
+        function translatePage(lang) {
+            currentLang = lang;
+            // Mettre à jour la couleur des boutons de langue
+            document.querySelectorAll('.lang-button').forEach(button => {
+                if (button.textContent.toLowerCase() === lang) {
+                    button.style.color = '#ff4d4d';
+                } else {
+                    button.style.color = '#ffffff';
+                }
+            });
+            // Traduire le contenu
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
         }
+
+        // Ajouter les attributs data-translate aux éléments
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.setAttribute('data-translate', link.textContent);
+            });
+            document.querySelector('.roster-header h1').setAttribute('data-translate', 'Notre Roster');
+            document.querySelector('.team-title').setAttribute('data-translate', 'Membres');
+            document.querySelectorAll('.stat-label').forEach(label => {
+                label.setAttribute('data-translate', 'Niveau');
+            });
+            document.querySelectorAll('.social-link').forEach(link => {
+                link.setAttribute('data-translate', link.textContent);
+            });
+            document.querySelector('footer p').setAttribute('data-translate', 'Tous droits réservés');
+        });
 
         // Gestionnaire des boutons de langue
         document.querySelectorAll('.language-btn').forEach(btn => {

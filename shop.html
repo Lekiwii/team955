@@ -251,6 +251,40 @@
             color: #666666;
         }
 
+        .lang-button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .lang-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff4d4d;
+            transition: width 0.3s ease;
+        }
+
+        .lang-button:hover::after {
+            width: 100%;
+        }
+
+        .lang-button:hover {
+            color: #ff4d4d;
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -356,6 +390,8 @@
             <li><a href="roster.html">Roster</a></li>
             <li><a href="annonces.html">News</a></li>
             <li><a href="shop.html" class="active">Shop</a></li>
+            <li><button onclick="translatePage('fr')" class="lang-button">FR</button></li>
+            <li><button onclick="translatePage('en')" class="lang-button">EN</button></li>
         </ul>
     </nav>
 
@@ -391,5 +427,72 @@
         </div>
         <p>&copy; 2024 Team 955. Tous droits réservés.</p>
     </footer>
+
+    <script>
+        // Script de traduction
+        const translations = {
+            'fr': {
+                'Accueil': 'Accueil',
+                'Roster': 'Roster',
+                'News': 'News',
+                'Shop': 'Shop',
+                'Notre Roster': 'Notre Roster',
+                'Membres': 'Membres',
+                'Niveau': 'Niveau',
+                'Fortnite Tracker': 'Fortnite Tracker',
+                'Acheter': 'Acheter',
+                'Tous droits réservés': 'Tous droits réservés'
+            },
+            'en': {
+                'Accueil': 'Home',
+                'Roster': 'Roster',
+                'News': 'News',
+                'Shop': 'Shop',
+                'Notre Roster': 'Our Roster',
+                'Membres': 'Members',
+                'Niveau': 'Level',
+                'Fortnite Tracker': 'Fortnite Tracker',
+                'Acheter': 'Buy',
+                'Tous droits réservés': 'All rights reserved'
+            }
+        };
+
+        let currentLang = 'fr';
+
+        function translatePage(lang) {
+            currentLang = lang;
+            // Mettre à jour la couleur des boutons de langue
+            document.querySelectorAll('.lang-button').forEach(button => {
+                if (button.textContent.toLowerCase() === lang) {
+                    button.style.color = '#ff4d4d';
+                } else {
+                    button.style.color = '#ffffff';
+                }
+            });
+            // Traduire le contenu
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Ajouter les attributs data-translate aux éléments
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.setAttribute('data-translate', link.textContent);
+            });
+            document.querySelector('.roster-header h1').setAttribute('data-translate', 'Notre Roster');
+            document.querySelector('.team-title').setAttribute('data-translate', 'Membres');
+            document.querySelectorAll('.stat-label').forEach(label => {
+                label.setAttribute('data-translate', 'Niveau');
+            });
+            document.querySelectorAll('.social-link').forEach(link => {
+                link.setAttribute('data-translate', link.textContent);
+            });
+            document.querySelector('footer p').setAttribute('data-translate', 'Tous droits réservés');
+        });
+    </script>
 </body>
 </html> 
