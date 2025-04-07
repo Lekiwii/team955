@@ -320,19 +320,95 @@
                 font-size: 2.5rem;
             }
 
-            .roster-filters {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .filter-button {
-                width: 100%;
-                max-width: 300px;
-                text-align: center;
-            }
-
             .players-grid {
                 grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+
+            .player-card {
+                margin-bottom: 2rem;
+            }
+
+            .player-image {
+                height: 250px;
+            }
+
+            .player-info {
+                padding: 1.5rem;
+            }
+
+            .player-name {
+                font-size: 1.5rem;
+            }
+
+            .player-role {
+                font-size: 0.9rem;
+            }
+
+            .player-stats {
+                gap: 1rem;
+            }
+
+            .stat-value {
+                font-size: 1.2rem;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
+            }
+
+            .social-link {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .footer-logo {
+                width: 120px;
+                height: 60px;
+            }
+
+            .social-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .social-links a {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .roster-header h1 {
+                font-size: 2rem;
+            }
+
+            .player-image {
+                height: 200px;
+            }
+
+            .player-info {
+                padding: 1rem;
+            }
+
+            .player-name {
+                font-size: 1.3rem;
+            }
+
+            .player-role {
+                font-size: 0.8rem;
+            }
+
+            .stat-value {
+                font-size: 1.1rem;
+            }
+
+            .stat-label {
+                font-size: 0.7rem;
+            }
+
+            .footer-logo {
+                width: 100px;
+                height: 50px;
             }
         }
     </style>
