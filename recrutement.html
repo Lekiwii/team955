@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Recrutement - Team 955</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: #0a0a0a;
+            background-image: url('images/fonddusite.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.95);
+            z-index: -1;
+        }
+
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.95);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            width: 120px;
+            height: 60px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            position: relative;
+            padding: 0.5rem 0;
+            border: none;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff4d4d;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #ff4d4d;
+        }
+
+        .nav-links a.active {
+            color: #ff4d4d;
+        }
+
+        main {
+            padding: 8rem 2rem 4rem;
+            min-height: 100vh;
+            background-color: #0a0a0a;
+        }
+
+        .recruitment-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .recruitment-header h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #333333, #666666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .recruitment-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(26, 26, 26, 0.8);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background-color: rgba(10, 10, 10, 0.8);
+            border: 1px solid #333333;
+            border-radius: 5px;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff4d4d;
+            box-shadow: 0 0 0 2px rgba(255, 77, 77, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #ff4d4d;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #ff3333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 77, 77, 0.3);
+        }
+
+        .recruitment-info {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .recruitment-info h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            color: #ff4d4d;
+        }
+
+        .recruitment-info p {
+            font-size: 1.1rem;
+            color: #cccccc;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .requirements-list {
+            list-style: none;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            text-align: left;
+        }
+
+        .requirements-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .requirements-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ff4d4d;
+            font-weight: 600;
+        }
+
+        footer {
+            background-color: #0a0a0a;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid #333333;
+        }
+
+        .footer-logo {
+            width: 150px;
+            height: 75px;
+            margin: 0 auto 2rem;
+        }
+
+        .footer-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #666666;
+        }
+
+        .lang-button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .lang-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff4d4d;
+            transition: width 0.3s ease;
+        }
+
+        .lang-button:hover::after {
+            width: 100%;
+        }
+
+        .lang-button:hover {
+            color: #ff4d4d;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .recruitment-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .recruitment-form {
+                padding: 2rem;
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                padding: 0.8rem;
+            }
+
+            .recruitment-info h2 {
+                font-size: 1.8rem;
+            }
+
+            .recruitment-info p {
+                font-size: 1rem;
+            }
+
+            .footer-logo {
+                width: 120px;
+                height: 60px;
+            }
+
+            .social-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .social-links a {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .recruitment-header h1 {
+                font-size: 2rem;
+            }
+
+            .recruitment-form {
+                padding: 1.5rem;
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                padding: 0.7rem;
+            }
+
+            .recruitment-info h2 {
+                font-size: 1.5rem;
+            }
+
+            .recruitment-info p {
+                font-size: 0.9rem;
+            }
+
+            .footer-logo {
+                width: 100px;
+                height: 50px;
+            }
+        }
+
+        /* Ajout de styles pour la transition de page */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0a0a0a;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            display: none;
+        }
+
+        .page-transition.active {
+            opacity: 1;
+            pointer-events: all;
+            display: block;
+        }
+
+        /* Cache initialement le contenu du site */
+        body > *:not(.page-transition) {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Affiche le contenu du site avec un fondu */
+        body.content-visible > *:not(.page-transition) {
+            opacity: 1;
+        }
+
+        /* Styles pour le menu mobile */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.95);
+            z-index: 1000;
+            padding-top: 5rem;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu .nav-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu .nav-links a {
+            font-size: 1.2rem;
+        }
+
+        .mobile-menu .lang-button {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu .nav-links {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ajout de l'élément de transition -->
+    <div class="page-transition"></div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.png" alt="Team 955 Logo">
+        </div>
+        <button class="mobile-menu-toggle">☰</button>
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="roster.html">Roster</a></li>
+            <li><a href="annonces.html">News</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="recrutement.html" class="active">Recrutement</a></li>
+            <li><button onclick="translatePage('fr')" class="lang-button">FR</button></li>
+            <li><button onclick="translatePage('en')" class="lang-button">EN</button></li>
+        </ul>
+    </nav>
+
+    <!-- Menu mobile -->
+    <div class="mobile-menu">
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="roster.html">Roster</a></li>
+            <li><a href="annonces.html">News</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="recrutement.html" class="active">Recrutement</a></li>
+        </ul>
+        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 2rem;">
+            <button onclick="translatePage('fr')" class="lang-button">FR</button>
+            <button onclick="translatePage('en')" class="lang-button">EN</button>
+        </div>
+    </div>
+
+    <main>
+        <div class="recruitment-header">
+            <h1>Recrutement</h1>
+        </div>
+
+        <div class="recruitment-form">
+            <form id="recruitmentForm">
+                <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="discord">Discord</label>
+                    <input type="text" id="discord" name="discord" required>
+                </div>
+                <div class="form-group">
+                    <label for="game">Jeu</label>
+                    <select id="game" name="game" required>
+                        <option value="">Sélectionnez un jeu</option>
+                        <option value="fortnite">Fortnite</option>
+                        <option value="rocket-league">Rocket League</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="experience">Expérience</label>
+                    <textarea id="experience" name="experience" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="motivation">Motivation</label>
+                    <textarea id="motivation" name="motivation" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Envoyer</button>
+            </form>
+        </div>
+
+        <div class="recruitment-info">
+            <h2>Rejoignez Team 955</h2>
+            <p>Nous recherchons des joueurs talentueux et motivés pour rejoindre notre équipe. Si vous pensez avoir ce qu'il faut, n'hésitez pas à postuler.</p>
+            
+            <h3>Exigences</h3>
+            <ul class="requirements-list">
+                <li>Être âgé d'au moins 16 ans</li>
+                <li>Avoir un niveau compétitif dans le jeu choisi</li>
+                <li>Être disponible pour les entraînements et les compétitions</li>
+                <li>Avoir un bon esprit d'équipe et être communicatif</li>
+                <li>Être motivé et avoir l'envie de progresser</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="images/logo.png" alt="Team 955 Logo">
+        </div>
+        <div class="social-links">
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+            <a href="https://discord.gg/DgA6H4gA">Discord</a>
+            <a href="#">Twitch</a>
+        </div>
+        <p>&copy; 2024 Team 955. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Script pour le menu mobile
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Fermer le menu mobile lors du clic sur un lien
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Script pour la transition de page
+        document.querySelectorAll('a[href="index.html"], a[href="roster.html"], a[href="annonces.html"], a[href="shop.html"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const transition = document.querySelector('.page-transition');
+                transition.classList.add('active');
+                
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 500);
+            });
+        });
+
+        // Afficher le contenu avec un fondu au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('content-visible');
+            // S'assurer que la transition est invisible au chargement initial
+            document.querySelector('.page-transition').style.opacity = '0';
+        });
+
+        // Script de traduction
+        const translations = {
+            'fr': {
+                'Accueil': 'Accueil',
+                'Roster': 'Roster',
+                'News': 'News',
+                'Shop': 'Shop',
+                'Recrutement': 'Recrutement',
+                'Nom': 'Nom',
+                'Email': 'Email',
+                'Discord': 'Discord',
+                'Jeu': 'Jeu',
+                'Sélectionnez un jeu': 'Sélectionnez un jeu',
+                'Fortnite': 'Fortnite',
+                'Rocket League': 'Rocket League',
+                'Expérience': 'Expérience',
+                'Motivation': 'Motivation',
+                'Envoyer': 'Envoyer',
+                'Rejoignez Team 955': 'Rejoignez Team 955',
+                'Nous recherchons des joueurs talentueux et motivés pour rejoindre notre équipe. Si vous pensez avoir ce qu\'il faut, n\'hésitez pas à postuler.': 'Nous recherchons des joueurs talentueux et motivés pour rejoindre notre équipe. Si vous pensez avoir ce qu\'il faut, n\'hésitez pas à postuler.',
+                'Exigences': 'Exigences',
+                'Être âgé d\'au moins 16 ans': 'Être âgé d\'au moins 16 ans',
+                'Avoir un niveau compétitif dans le jeu choisi': 'Avoir un niveau compétitif dans le jeu choisi',
+                'Être disponible pour les entraînements et les compétitions': 'Être disponible pour les entraînements et les compétitions',
+                'Avoir un bon esprit d\'équipe et être communicatif': 'Avoir un bon esprit d\'équipe et être communicatif',
+                'Être motivé et avoir l\'envie de progresser': 'Être motivé et avoir l\'envie de progresser',
+                'Tous droits réservés': 'Tous droits réservés'
+            },
+            'en': {
+                'Accueil': 'Home',
+                'Roster': 'Roster',
+                'News': 'News',
+                'Shop': 'Shop',
+                'Recrutement': 'Recruitment',
+                'Nom': 'Name',
+                'Email': 'Email',
+                'Discord': 'Discord',
+                'Jeu': 'Game',
+                'Sélectionnez un jeu': 'Select a game',
+                'Fortnite': 'Fortnite',
+                'Rocket League': 'Rocket League',
+                'Expérience': 'Experience',
+                'Motivation': 'Motivation',
+                'Envoyer': 'Submit',
+                'Rejoignez Team 955': 'Join Team 955',
+                'Nous recherchons des joueurs talentueux et motivés pour rejoindre notre équipe. Si vous pensez avoir ce qu\'il faut, n\'hésitez pas à postuler.': 'We are looking for talented and motivated players to join our team. If you think you have what it takes, don\'t hesitate to apply.',
+                'Exigences': 'Requirements',
+                'Être âgé d\'au moins 16 ans': 'Be at least 16 years old',
+                'Avoir un niveau compétitif dans le jeu choisi': 'Have a competitive level in the chosen game',
+                'Être disponible pour les entraînements et les compétitions': 'Be available for training and competitions',
+                'Avoir un bon esprit d\'équipe et être communicatif': 'Have good team spirit and be communicative',
+                'Être motivé et avoir l\'envie de progresser': 'Be motivated and have the desire to improve',
+                'Tous droits réservés': 'All rights reserved'
+            }
+        };
+
+        let currentLang = 'fr';
+
+        function translatePage(lang) {
+            currentLang = lang;
+            // Mettre à jour la couleur des boutons de langue
+            document.querySelectorAll('.lang-button').forEach(button => {
+                if (button.textContent.toLowerCase() === lang) {
+                    button.style.color = '#ff4d4d';
+                } else {
+                    button.style.color = '#ffffff';
+                }
+            });
+            // Traduire le contenu
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Ajouter les attributs data-translate aux éléments
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.setAttribute('data-translate', link.textContent);
+            });
+            document.querySelector('.recruitment-header h1').setAttribute('data-translate', 'Recrutement');
+            document.querySelector('label[for="name"]').setAttribute('data-translate', 'Nom');
+            document.querySelector('label[for="email"]').setAttribute('data-translate', 'Email');
+            document.querySelector('label[for="discord"]').setAttribute('data-translate', 'Discord');
+            document.querySelector('label[for="game"]').setAttribute('data-translate', 'Jeu');
+            document.querySelector('option[value=""]').setAttribute('data-translate', 'Sélectionnez un jeu');
+            document.querySelector('option[value="fortnite"]').setAttribute('data-translate', 'Fortnite');
+            document.querySelector('option[value="rocket-league"]').setAttribute('data-translate', 'Rocket League');
+            document.querySelector('label[for="experience"]').setAttribute('data-translate', 'Expérience');
+            document.querySelector('label[for="motivation"]').setAttribute('data-translate', 'Motivation');
+            document.querySelector('.submit-btn').setAttribute('data-translate', 'Envoyer');
+            document.querySelector('.recruitment-info h2').setAttribute('data-translate', 'Rejoignez Team 955');
+            document.querySelector('.recruitment-info p').setAttribute('data-translate', 'Nous recherchons des joueurs talentueux et motivés pour rejoindre notre équipe. Si vous pensez avoir ce qu\'il faut, n\'hésitez pas à postuler.');
+            document.querySelector('.recruitment-info h3').setAttribute('data-translate', 'Exigences');
+            document.querySelectorAll('.requirements-list li').forEach((li, index) => {
+                const keys = [
+                    'Être âgé d\'au moins 16 ans',
+                    'Avoir un niveau compétitif dans le jeu choisi',
+                    'Être disponible pour les entraînements et les compétitions',
+                    'Avoir un bon esprit d\'équipe et être communicatif',
+                    'Être motivé et avoir l\'envie de progresser'
+                ];
+                li.setAttribute('data-translate', keys[index]);
+            });
+            document.querySelector('footer p').setAttribute('data-translate', 'Tous droits réservés');
+        });
+
+        // Gestion du formulaire
+        document.getElementById('recruitmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Récupérer les données du formulaire
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                discord: document.getElementById('discord').value,
+                game: document.getElementById('game').value,
+                experience: document.getElementById('experience').value,
+                motivation: document.getElementById('motivation').value
+            };
+            
+            // Afficher un message de confirmation
+            alert('Votre candidature a été envoyée avec succès ! Nous vous contacterons bientôt.');
+            
+            // Réinitialiser le formulaire
+            this.reset();
+        });
+    </script>
+</body>
+</html> 
