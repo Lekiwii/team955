@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Team 955 - Fortnite</title>
+    <title>Team 955 - Accueil</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -111,115 +111,78 @@
             color: #ff4d4d;
         }
 
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+        main {
+            padding: 8rem 2rem 4rem;
+            min-height: 100vh;
             background-color: #0a0a0a;
         }
 
-        .hero-logo {
-            width: 400px;
-            height: 400px;
-            margin-bottom: 2rem;
-            position: relative;
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 4rem;
         }
 
-        .hero-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 6rem;
+        .welcome-section h1 {
+            font-size: 4rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 4px;
             margin-bottom: 1rem;
-            line-height: 1;
             background: linear-gradient(45deg, #333333, #666666);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero p {
-            font-size: 1.5rem;
-            color: #666666;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .games-section {
-            padding: 6rem 2rem;
-            background-color: #0a0a0a;
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            max-width: 1200px;
+        .welcome-section p {
+            font-size: 1.2rem;
+            color: #cccccc;
+            max-width: 800px;
             margin: 0 auto;
         }
 
-        .game-card {
-            position: relative;
-            height: 400px;
-            overflow: hidden;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .game-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .game-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .game-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+        .pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 2rem;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        }
+
+        .page-card {
+            background-color: rgba(26, 26, 26, 0.8);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
             color: #ffffff;
         }
 
-        .game-overlay h3 {
-            font-size: 2rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
+        .page-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3);
+            background-color: rgba(26, 26, 26, 0.9);
         }
 
-        .game-overlay p {
-            color: #ffffff;
+        .page-card h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #ff4d4d;
+        }
+
+        .page-card p {
+            font-size: 1rem;
+            color: #cccccc;
         }
 
         footer {
             background-color: #0a0a0a;
             padding: 4rem 2rem;
             text-align: center;
-            border-top: 1px solid #1a1a1a;
+            border-top: 1px solid #333333;
         }
 
         .footer-logo {
@@ -254,39 +217,64 @@
             color: #666666;
         }
 
+        .lang-button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .lang-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff4d4d;
+            transition: width 0.3s ease;
+        }
+
+        .lang-button:hover::after {
+            width: 100%;
+        }
+
+        .lang-button:hover {
+            color: #ff4d4d;
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
 
-            .hero-content h1 {
+            .welcome-section h1 {
                 font-size: 2.5rem;
             }
 
-            .hero-content p {
+            .welcome-section p {
                 font-size: 1rem;
             }
 
-            .hero-logo {
-                width: 250px;
-                height: 250px;
-            }
-
-            .games-grid {
+            .pages-grid {
                 grid-template-columns: 1fr;
-                padding: 0 1rem;
+                padding: 1rem;
             }
 
-            .game-card {
-                height: 300px;
+            .page-card {
+                padding: 1.5rem;
             }
 
-            .game-overlay h3 {
+            .page-card h2 {
                 font-size: 1.5rem;
-            }
-
-            .game-overlay p {
-                font-size: 1rem;
             }
 
             .footer-logo {
@@ -305,192 +293,26 @@
         }
 
         @media (max-width: 480px) {
-            .navbar {
-                padding: 0.5rem 1rem;
-            }
-
-            .logo {
-                width: 100px;
-                height: 50px;
-            }
-
-            .hero-content h1 {
+            .welcome-section h1 {
                 font-size: 2rem;
             }
 
-            .hero-content p {
+            .welcome-section p {
                 font-size: 0.9rem;
             }
 
-            .hero-logo {
-                width: 200px;
-                height: 200px;
-            }
-
-            .game-card {
-                height: 250px;
-            }
-
-            .game-overlay {
+            .page-card {
                 padding: 1rem;
             }
 
-            .game-overlay h3 {
-                font-size: 1.2rem;
-            }
-
-            .game-overlay p {
-                font-size: 0.9rem;
+            .page-card h2 {
+                font-size: 1.3rem;
             }
 
             .footer-logo {
                 width: 100px;
                 height: 50px;
             }
-
-            .social-links a {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Styles pour l'écran de chargement */
-        .loader-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0a0a0a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            perspective: 1000px;
-        }
-
-        .loader {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            animation: rushTowards 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-            transform-style: preserve-3d;
-        }
-
-        .loader img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        @keyframes rushTowards {
-            0% {
-                transform: translateZ(-1000px) scale(0.5);
-                opacity: 0;
-            }
-            30% {
-                transform: translateZ(0) scale(1.2);
-                opacity: 1;
-            }
-            100% {
-                transform: translateZ(800px) scale(3);
-                opacity: 0;
-            }
-        }
-
-        /* Cache initialement le contenu du site */
-        body > *:not(.loader-wrapper) {
-            opacity: 0;
-            transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Affiche le contenu du site avec un fondu */
-        body.content-visible > *:not(.loader-wrapper) {
-            opacity: 1;
-        }
-
-        .loader-wrapper.fade-out {
-            opacity: 0;
-            visibility: hidden;
-            background: transparent;
-        }
-
-        .loader-wrapper.hidden {
-            display: none;
-        }
-
-        /* Ajout du style pour le sélecteur de langue */
-        .language-selector {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-left: 2rem;
-        }
-
-        .language-btn {
-            background: none;
-            border: none;
-            color: #ffffff;
-            cursor: pointer;
-            font-weight: 600;
-            text-transform: uppercase;
-            padding: 0.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .language-btn.active {
-            color: #ff4d4d;
-        }
-
-        .language-btn:hover {
-            color: #ff4d4d;
-        }
-
-        /* Ajout de styles spécifiques pour iPhone */
-        @supports (-webkit-touch-callout: none) {
-            .hero {
-                height: -webkit-fill-available;
-            }
-
-            .navbar {
-                padding-top: env(safe-area-inset-top);
-            }
-
-            .footer {
-                padding-bottom: env(safe-area-inset-bottom);
-            }
-        }
-
-        /* Ajout de styles pour la transition de page */
-        .page-transition {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #0a0a0a;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-            display: none;
-        }
-
-        .page-transition.active {
-            opacity: 1;
-            pointer-events: all;
-            display: block;
-        }
-
-        /* Cache initialement le contenu du site */
-        body > *:not(.loader-wrapper):not(.page-transition) {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        /* Affiche le contenu du site avec un fondu */
-        body.content-visible > *:not(.loader-wrapper):not(.page-transition) {
-            opacity: 1;
         }
 
         /* Styles pour le menu mobile */
@@ -533,11 +355,9 @@
             font-size: 1.2rem;
         }
 
-        .mobile-menu .language-selector {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
+        .mobile-menu .lang-button {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
         }
 
         @media (max-width: 768px) {
@@ -556,77 +376,62 @@
     </style>
 </head>
 <body>
-    <!-- Ajout de l'élément de transition -->
-    <div class="page-transition"></div>
-
-    <!-- Ajout de l'écran de chargement -->
-    <div class="loader-wrapper">
-        <div class="loader">
-            <img src="images/logo.png" alt="Team 955 Logo">
-        </div>
-    </div>
-
     <nav class="navbar">
         <div class="logo">
             <img src="images/logo.png" alt="Team 955 Logo">
         </div>
         <button class="mobile-menu-toggle">☰</button>
         <ul class="nav-links">
-            <li><a href="index.html" class="active" data-fr="Accueil" data-en="Home">Accueil</a></li>
-            <li><a href="roster.html" data-fr="Roster" data-en="Roster">Roster</a></li>
-            <li><a href="annonces.html" data-fr="News" data-en="News">News</a></li>
-            <li><a href="shop.html" data-fr="Shop" data-en="Shop">Shop</a></li>
-            <div class="language-selector">
-                <button class="language-btn active" data-lang="fr">FR</button>
-                <button class="language-btn" data-lang="en">EN</button>
-            </div>
+            <li><a href="index.html" class="active">Accueil</a></li>
+            <li><a href="roster.html">Roster</a></li>
+            <li><a href="annonces.html">News</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="recrutement.html">Recrutement</a></li>
+            <li><button onclick="translatePage('fr')" class="lang-button">FR</button></li>
+            <li><button onclick="translatePage('en')" class="lang-button">EN</button></li>
         </ul>
     </nav>
 
     <!-- Menu mobile -->
     <div class="mobile-menu">
         <ul class="nav-links">
-            <li><a href="index.html" class="active" data-fr="Accueil" data-en="Home">Accueil</a></li>
-            <li><a href="roster.html" data-fr="Roster" data-en="Roster">Roster</a></li>
-            <li><a href="annonces.html" data-fr="News" data-en="News">News</a></li>
-            <li><a href="shop.html" data-fr="Shop" data-en="Shop">Shop</a></li>
+            <li><a href="index.html" class="active">Accueil</a></li>
+            <li><a href="roster.html">Roster</a></li>
+            <li><a href="annonces.html">News</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="recrutement.html">Recrutement</a></li>
         </ul>
-        <div class="language-selector">
-            <button class="language-btn active" data-lang="fr">FR</button>
-            <button class="language-btn" data-lang="en">EN</button>
+        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 2rem;">
+            <button onclick="translatePage('fr')" class="lang-button">FR</button>
+            <button onclick="translatePage('en')" class="lang-button">EN</button>
         </div>
     </div>
 
-    <header class="hero">
-        <div class="hero-content">
-            <div class="hero-logo">
-                <img src="images/logo.png" alt="Team 955 Logo">
-            </div>
-            <h1>Team 955</h1>
-            <p>Choissis ton équipe</p>
+    <main>
+        <div class="welcome-section">
+            <h1>Bienvenue sur Team 955</h1>
+            <p>Découvrez notre équipe de joueurs passionnés et rejoignez notre communauté.</p>
         </div>
-    </header>
 
-    <section class="games-section">
-        <div class="games-grid">
-            <a href="roster.html" style="text-decoration: none;">
-                <div class="game-card">
-                    <img src="images/fortnite.jpg" alt="Fortnite">
-                    <div class="game-overlay">
-                        <h3>Fortnite</h3>
-                        <p>Notre équipe principale</p>
-                    </div>
-                </div>
+        <div class="pages-grid">
+            <a href="roster.html" class="page-card">
+                <h2>Roster</h2>
+                <p>Découvrez les membres de notre équipe et leurs accomplissements.</p>
             </a>
-            <div class="game-card">
-                <img src="images/rocket-league.jpg" alt="Rocket League">
-                <div class="game-overlay">
-                    <h3>Rocket League</h3>
-                    <p>Notre équipe secondaire</p>
-                </div>
-            </div>
+            <a href="annonces.html" class="page-card">
+                <h2>News</h2>
+                <p>Restez informé des dernières actualités et annonces de l'équipe.</p>
+            </a>
+            <a href="shop.html" class="page-card">
+                <h2>Shop</h2>
+                <p>Explorez notre boutique et découvrez nos produits exclusifs.</p>
+            </a>
+            <a href="recrutement.html" class="page-card">
+                <h2>Recrutement</h2>
+                <p>Rejoignez notre équipe et faites partie de l'aventure.</p>
+            </a>
         </div>
-    </section>
+    </main>
 
     <footer>
         <div class="footer-logo">
@@ -657,33 +462,6 @@
             });
         });
 
-        // Script pour la transition de page
-        document.querySelector('a[href="roster.html"]').addEventListener('click', function(e) {
-            e.preventDefault();
-            const transition = document.querySelector('.page-transition');
-            transition.classList.add('active');
-            
-            setTimeout(() => {
-                window.location.href = this.href;
-            }, 500);
-        });
-
-        // Animation du logo au premier chargement uniquement
-        document.addEventListener('DOMContentLoaded', () => {
-            if (!sessionStorage.getItem('logoAnimated')) {
-                const logo = document.querySelector('.logo');
-                logo.style.opacity = '0';
-                logo.style.transform = 'translateY(-20px)';
-                
-                setTimeout(() => {
-                    logo.style.transition = 'all 1s ease';
-                    logo.style.opacity = '1';
-                    logo.style.transform = 'translateY(0)';
-                    sessionStorage.setItem('logoAnimated', 'true');
-                }, 500);
-            }
-        });
-
         // Script de traduction
         const translations = {
             'fr': {
@@ -691,30 +469,28 @@
                 'Roster': 'Roster',
                 'News': 'News',
                 'Shop': 'Shop',
-                'Notre Roster': 'Notre Roster',
-                'Membres': 'Membres',
-                'Niveau': 'Niveau',
-                'Fortnite Tracker': 'Fortnite Tracker',
-                'Acheter': 'Acheter',
-                'Tous droits réservés': 'Tous droits réservés',
-                'Notre Shop': 'Notre Shop',
-                'Produit Officiel': 'Produit Officiel',
-                'Collection Exclusif': 'Collection Exclusif'
+                'Recrutement': 'Recrutement',
+                'Bienvenue sur Team 955': 'Bienvenue sur Team 955',
+                'Découvrez notre équipe de joueurs passionnés et rejoignez notre communauté.': 'Découvrez notre équipe de joueurs passionnés et rejoignez notre communauté.',
+                'Découvrez les membres de notre équipe et leurs accomplissements.': 'Découvrez les membres de notre équipe et leurs accomplissements.',
+                'Restez informé des dernières actualités et annonces de l\'équipe.': 'Restez informé des dernières actualités et annonces de l\'équipe.',
+                'Explorez notre boutique et découvrez nos produits exclusifs.': 'Explorez notre boutique et découvrez nos produits exclusifs.',
+                'Rejoignez notre équipe et faites partie de l\'aventure.': 'Rejoignez notre équipe et faites partie de l\'aventure.',
+                'Tous droits réservés': 'Tous droits réservés'
             },
             'en': {
                 'Accueil': 'Home',
                 'Roster': 'Roster',
                 'News': 'News',
                 'Shop': 'Shop',
-                'Notre Roster': 'Our Roster',
-                'Membres': 'Members',
-                'Niveau': 'Level',
-                'Fortnite Tracker': 'Fortnite Tracker',
-                'Acheter': 'Buy',
-                'Tous droits réservés': 'All rights reserved',
-                'Notre Shop': 'Our Shop',
-                'Produit Officiel': 'Official Product',
-                'Collection Exclusif': 'Exclusive Collection'
+                'Recrutement': 'Recruitment',
+                'Bienvenue sur Team 955': 'Welcome to Team 955',
+                'Découvrez notre équipe de joueurs passionnés et rejoignez notre communauté.': 'Discover our team of passionate players and join our community.',
+                'Découvrez les membres de notre équipe et leurs accomplissements.': 'Discover our team members and their achievements.',
+                'Restez informé des dernières actualités et annonces de l\'équipe.': 'Stay informed about the latest news and announcements from the team.',
+                'Explorez notre boutique et découvrez nos produits exclusifs.': 'Explore our shop and discover our exclusive products.',
+                'Rejoignez notre équipe et faites partie de l\'aventure.': 'Join our team and be part of the adventure.',
+                'Tous droits réservés': 'All rights reserved'
             }
         };
 
@@ -744,52 +520,22 @@
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.setAttribute('data-translate', link.textContent);
             });
-            document.querySelector('.roster-header h1').setAttribute('data-translate', 'Notre Roster');
-            document.querySelector('.team-title').setAttribute('data-translate', 'Membres');
-            document.querySelectorAll('.stat-label').forEach(label => {
-                label.setAttribute('data-translate', 'Niveau');
+            document.querySelector('.welcome-section h1').setAttribute('data-translate', 'Bienvenue sur Team 955');
+            document.querySelector('.welcome-section p').setAttribute('data-translate', 'Découvrez notre équipe de joueurs passionnés et rejoignez notre communauté.');
+            document.querySelectorAll('.page-card h2').forEach((h2, index) => {
+                const keys = ['Roster', 'News', 'Shop', 'Recrutement'];
+                h2.setAttribute('data-translate', keys[index]);
             });
-            document.querySelectorAll('.social-link').forEach(link => {
-                link.setAttribute('data-translate', link.textContent);
+            document.querySelectorAll('.page-card p').forEach((p, index) => {
+                const keys = [
+                    'Découvrez les membres de notre équipe et leurs accomplissements.',
+                    'Restez informé des dernières actualités et annonces de l\'équipe.',
+                    'Explorez notre boutique et découvrez nos produits exclusifs.',
+                    'Rejoignez notre équipe et faites partie de l\'aventure.'
+                ];
+                p.setAttribute('data-translate', keys[index]);
             });
             document.querySelector('footer p').setAttribute('data-translate', 'Tous droits réservés');
-        });
-
-        // Gestionnaire des boutons de langue
-        document.querySelectorAll('.language-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.language-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                translatePage(btn.getAttribute('data-lang'));
-            });
-        });
-
-        // Script pour l'écran de chargement
-        window.addEventListener('load', () => {
-            const loader = document.querySelector('.loader-wrapper');
-            const body = document.body;
-            
-            // Jouer l'animation
-            setTimeout(() => {
-                loader.classList.add('fade-out');
-                body.classList.add('content-visible');
-                
-                setTimeout(() => {
-                    loader.classList.add('hidden');
-                    // S'assurer que la transition est invisible au chargement initial
-                    document.querySelector('.page-transition').style.opacity = '0';
-                }, 1500);
-            }, 2000);
-        });
-
-        // Script existant pour les filtres
-        const filterButtons = document.querySelectorAll('.filter-button');
-        
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-            });
         });
     </script>
 </body>
