@@ -445,13 +445,108 @@
                 height: 50px;
             }
         }
+
+        /* Ajout de styles pour la transition de page */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0a0a0a;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            display: none;
+        }
+
+        .page-transition.active {
+            opacity: 1;
+            pointer-events: all;
+            display: block;
+        }
+
+        /* Cache initialement le contenu du site */
+        body > *:not(.page-transition) {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Affiche le contenu du site avec un fondu */
+        body.content-visible > *:not(.page-transition) {
+            opacity: 1;
+        }
+
+        /* Styles pour le menu mobile */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.95);
+            z-index: 1000;
+            padding-top: 5rem;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu .nav-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu .nav-links a {
+            font-size: 1.2rem;
+        }
+
+        .mobile-menu .lang-button {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu .nav-links {
+                display: flex;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Ajout de l'élément de transition -->
+    <div class="page-transition"></div>
+
     <nav class="navbar">
         <div class="logo">
             <img src="images/logo.png" alt="Team 955 Logo">
         </div>
+        <button class="mobile-menu-toggle">☰</button>
         <ul class="nav-links">
             <li><a href="index.html">Accueil</a></li>
             <li><a href="roster.html" class="active">Roster</a></li>
@@ -461,6 +556,20 @@
             <li><button onclick="translatePage('en')" class="lang-button">EN</button></li>
         </ul>
     </nav>
+
+    <!-- Menu mobile -->
+    <div class="mobile-menu">
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="roster.html" class="active">Roster</a></li>
+            <li><a href="annonces.html">News</a></li>
+            <li><a href="shop.html">Shop</a></li>
+        </ul>
+        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 2rem;">
+            <button onclick="translatePage('fr')" class="lang-button">FR</button>
+            <button onclick="translatePage('en')" class="lang-button">EN</button>
+        </div>
+    </div>
 
     <main>
         <div class="roster-header">
@@ -631,6 +740,24 @@
         });
     </script>
     <script>
+        // Script pour la transition de page
+        document.querySelector('a[href="index.html"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            const transition = document.querySelector('.page-transition');
+            transition.classList.add('active');
+            
+            setTimeout(() => {
+                window.location.href = this.href;
+            }, 500);
+        });
+
+        // Afficher le contenu avec un fondu au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('content-visible');
+            // S'assurer que la transition est invisible au chargement initial
+            document.querySelector('.page-transition').style.opacity = '0';
+        });
+
         // Script de traduction
         const translations = {
             'fr': {
@@ -694,6 +821,22 @@
                 link.setAttribute('data-translate', link.textContent);
             });
             document.querySelector('footer p').setAttribute('data-translate', 'Tous droits réservés');
+        });
+    </script>
+    <script>
+        // Script pour le menu mobile
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Fermer le menu mobile lors du clic sur un lien
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
         });
     </script>
 </body>

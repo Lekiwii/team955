@@ -460,9 +460,105 @@
                 padding-bottom: env(safe-area-inset-bottom);
             }
         }
+
+        /* Ajout de styles pour la transition de page */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0a0a0a;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            display: none;
+        }
+
+        .page-transition.active {
+            opacity: 1;
+            pointer-events: all;
+            display: block;
+        }
+
+        /* Cache initialement le contenu du site */
+        body > *:not(.loader-wrapper):not(.page-transition) {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Affiche le contenu du site avec un fondu */
+        body.content-visible > *:not(.loader-wrapper):not(.page-transition) {
+            opacity: 1;
+        }
+
+        /* Styles pour le menu mobile */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.95);
+            z-index: 1000;
+            padding-top: 5rem;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu .nav-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu .nav-links a {
+            font-size: 1.2rem;
+        }
+
+        .mobile-menu .language-selector {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu .nav-links {
+                display: flex;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Ajout de l'élément de transition -->
+    <div class="page-transition"></div>
+
     <!-- Ajout de l'écran de chargement -->
     <div class="loader-wrapper">
         <div class="loader">
@@ -474,6 +570,7 @@
         <div class="logo">
             <img src="images/logo.png" alt="Team 955 Logo">
         </div>
+        <button class="mobile-menu-toggle">☰</button>
         <ul class="nav-links">
             <li><a href="index.html" class="active" data-fr="Accueil" data-en="Home">Accueil</a></li>
             <li><a href="roster.html" data-fr="Roster" data-en="Roster">Roster</a></li>
@@ -485,6 +582,20 @@
             </div>
         </ul>
     </nav>
+
+    <!-- Menu mobile -->
+    <div class="mobile-menu">
+        <ul class="nav-links">
+            <li><a href="index.html" class="active" data-fr="Accueil" data-en="Home">Accueil</a></li>
+            <li><a href="roster.html" data-fr="Roster" data-en="Roster">Roster</a></li>
+            <li><a href="annonces.html" data-fr="News" data-en="News">News</a></li>
+            <li><a href="shop.html" data-fr="Shop" data-en="Shop">Shop</a></li>
+        </ul>
+        <div class="language-selector">
+            <button class="language-btn active" data-lang="fr">FR</button>
+            <button class="language-btn" data-lang="en">EN</button>
+        </div>
+    </div>
 
     <header class="hero">
         <div class="hero-content">
@@ -498,13 +609,15 @@
 
     <section class="games-section">
         <div class="games-grid">
-            <div class="game-card">
-                <img src="images/fortnite.jpg" alt="Fortnite">
-                <div class="game-overlay">
-                    <h3>Fortnite</h3>
-                    <p>Notre équipe principale</p>
+            <a href="roster.html" style="text-decoration: none;">
+                <div class="game-card">
+                    <img src="images/fortnite.jpg" alt="Fortnite">
+                    <div class="game-overlay">
+                        <h3>Fortnite</h3>
+                        <p>Notre équipe principale</p>
+                    </div>
                 </div>
-            </div>
+            </a>
             <div class="game-card">
                 <img src="images/rocket-league.jpg" alt="Rocket League">
                 <div class="game-overlay">
@@ -529,6 +642,32 @@
     </footer>
 
     <script>
+        // Script pour le menu mobile
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Fermer le menu mobile lors du clic sur un lien
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Script pour la transition de page
+        document.querySelector('a[href="roster.html"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            const transition = document.querySelector('.page-transition');
+            transition.classList.add('active');
+            
+            setTimeout(() => {
+                window.location.href = this.href;
+            }, 500);
+        });
+
         // Animation du logo au premier chargement uniquement
         document.addEventListener('DOMContentLoaded', () => {
             if (!sessionStorage.getItem('logoAnimated')) {
@@ -637,6 +776,8 @@
                 
                 setTimeout(() => {
                     loader.classList.add('hidden');
+                    // S'assurer que la transition est invisible au chargement initial
+                    document.querySelector('.page-transition').style.opacity = '0';
                 }, 1500);
             }, 2000);
         });
